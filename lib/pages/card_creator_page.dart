@@ -19,10 +19,31 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
     'Inter'
   ];
   String _banco = '';
-
+  Color cardColor = Color(0xFF0303030);
   TextEditingController _numberController = TextEditingController();
   TextEditingController _monthController = TextEditingController();
   TextEditingController _yearController = TextEditingController();
+
+  Color setCardColor(String banco) {
+    Color color;
+    if (banco == 'Bradesco') {
+      color = Color(0xFFC40027);
+    } else if (banco == 'Itaú') {
+      color = Color(0xFF003091);
+    } else if (banco == 'Banco do Brasil') {
+      color = Color(0xFFECD219);
+    } else if (banco == 'Caixa') {
+      color = Color(0xFF175997);
+    } else if (banco == 'NuBank') {
+      color = Color(0xFF9600D0);
+    } else if (banco == 'Inter') {
+      color = Color(0xFFF27400);
+    } else {
+      color = Color(0xFF303030);
+    }
+
+    return color;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +70,7 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                   onChanged: (value) {
                     setState(() {
                       _banco = value.toString();
+                      cardColor = setCardColor(_banco);
                     });
                   },
                   items: _bancos.map(
@@ -134,7 +156,19 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                 SizedBox(
                   height: 50,
                 ),
-                CreateCardWidget()
+                CreateCardWidget(
+                  cardColor: cardColor,
+                  banco: _banco,
+                  cardNumber: _numberController.text.isNotEmpty
+                      ? int.parse(_numberController.text)
+                      : 0,
+                  expiryMonth: _monthController.text.isNotEmpty
+                      ? int.parse(_monthController.text)
+                      : 0,
+                  expiryYear: _yearController.text.isNotEmpty
+                      ? int.parse(_yearController.text)
+                      : 0,
+                )
               ],
             ),
           ),
