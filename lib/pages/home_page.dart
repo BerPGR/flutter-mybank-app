@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mybank/model/bank_card.dart';
 import 'package:mybank/pages/card_creator_page.dart';
+import 'package:mybank/widgets/my_cards.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,6 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +49,34 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 200,
+                    child: PageView(
+                      scrollDirection: Axis.horizontal,
+                      controller: _pageController,
+                      children: [
+                        for (final card in cards)
+                          MyCards(
+                              flag: card.flag,
+                              expiryYear: card.expiryYear,
+                              expiryMonth: card.expiryMonth,
+                              cardNumber: card.cardNumber,
+                              color: card.color,
+                              balance: card.balance),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  SmoothPageIndicator(
+                    controller: _pageController,
+                    count: cards.length,
+                    effect: ExpandingDotsEffect(),
+                  )
                 ],
               ),
             ),
