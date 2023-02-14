@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mybank/model/card.dart';
+import 'package:mybank/model/bank_card.dart';
 import 'package:mybank/widgets/create_card_widget.dart';
 
 class CardCreatorPage extends StatefulWidget {
@@ -10,6 +10,14 @@ class CardCreatorPage extends StatefulWidget {
 }
 
 class _CardCreatorPageState extends State<CardCreatorPage> {
+  String flagImagePath = '';
+  String _banco = '';
+  Color cardColor = Color(0xFF0303030);
+
+  TextEditingController _numberController = TextEditingController();
+  TextEditingController _monthController = TextEditingController();
+  TextEditingController _yearController = TextEditingController();
+
   List<String> _bancos = [
     'Caixa',
     'Bradesco',
@@ -18,11 +26,6 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
     'NuBank',
     'Inter'
   ];
-  String _banco = '';
-  Color cardColor = Color(0xFF0303030);
-  TextEditingController _numberController = TextEditingController();
-  TextEditingController _monthController = TextEditingController();
-  TextEditingController _yearController = TextEditingController();
 
   Color setCardColor(String banco) {
     Color color;
@@ -58,9 +61,18 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Text(
-                    'Add your card info',
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: Navigator.of(context).pop,
+                        icon: Icon(Icons.arrow_back_ios),
+                      ),
+                      Text(
+                        'Add your card info',
+                        style: TextStyle(
+                            fontSize: 26, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                 ),
                 DropdownButton<String>(
@@ -86,6 +98,20 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                   height: 20,
                 ),
                 TextField(
+                  onChanged: (value) {
+                    if (value.length == 16) {
+                      if (value.substring(0, 1) == '4') {
+                        setState(() {
+                          flagImagePath = 'assets/images/visa.png';
+                        });
+                      } else if (int.parse(value.substring(0, 2)) > 50 &&
+                          int.parse(value.substring(0, 2)) < 56) {
+                        setState(() {
+                          flagImagePath = 'assets/images/mastercard.png';
+                        });
+                      }
+                    }
+                  },
                   controller: _numberController,
                   keyboardType: TextInputType.number,
                   maxLength: 16,
@@ -157,11 +183,12 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                   height: 50,
                 ),
                 CreateCardWidget(
+                  flagImagePath: flagImagePath,
                   cardColor: cardColor,
                   banco: _banco,
                   cardNumber: _numberController.text.isNotEmpty
-                      ? int.parse(_numberController.text)
-                      : 0,
+                      ? _numberController.text
+                      : '',
                   expiryMonth: _monthController.text.isNotEmpty
                       ? int.parse(_monthController.text)
                       : 0,
