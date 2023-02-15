@@ -52,31 +52,44 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    height: 200,
-                    child: PageView(
-                      scrollDirection: Axis.horizontal,
-                      controller: _pageController,
-                      children: [
-                        for (final card in cards)
-                          MyCards(
-                              flag: card.flag,
-                              expiryYear: card.expiryYear,
-                              expiryMonth: card.expiryMonth,
-                              cardNumber: card.cardNumber,
-                              color: card.color,
-                              balance: card.balance),
-                      ],
+                  if (cards.isEmpty)
+                    Container(
+                      height: 200,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text('There are no cards in your account'),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  SmoothPageIndicator(
-                    controller: _pageController,
-                    count: cards.length,
-                    effect: ExpandingDotsEffect(),
-                  )
+                  if (cards.isNotEmpty)
+                    Column(
+                      children: [
+                        Container(
+                          height: 200,
+                          child: PageView(
+                            scrollDirection: Axis.horizontal,
+                            controller: _pageController,
+                            children: [
+                              for (final card in cards)
+                                MyCards(
+                                    flag: card.flag,
+                                    expiryYear: card.expiryYear,
+                                    expiryMonth: card.expiryMonth,
+                                    cardNumber: card.cardNumber,
+                                    color: card.color,
+                                    balance: card.balance),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        SmoothPageIndicator(
+                          controller: _pageController,
+                          count: cards.length,
+                          effect: ExpandingDotsEffect(),
+                        )
+                      ],
+                    )
                 ],
               ),
             ),
