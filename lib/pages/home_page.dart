@@ -51,10 +51,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // Scaffold for our layout
+    /* 
+    Scaffold for our layout
+    */
     return Scaffold(
       body: Container(
-        // Using SafeArea instead a AppBar
+        /* 
+        Using SafeArea instead a AppBar
+        */
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -63,7 +67,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
-                    // Row as our AppBar
+                    /* 
+                    Row at the top as the AppBar
+                    */
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -102,10 +108,14 @@ class _HomePageState extends State<HomePage> {
                     height: 10,
                   ),
 
-                  // Verification to check if allCards list is not empty.
+                  /* 
+                  Verification to check if allCards list is not empty.
+                  */
                   if (allCards.isNotEmpty) _allCards(),
 
-                  //  If allCards is empty, it'll show us a message.
+                  /*
+                  If allCards is empty, it'll show us a message.
+                  */
                   if (allCards.isEmpty)
                     Container(
                       alignment: Alignment.center,
@@ -116,7 +126,9 @@ class _HomePageState extends State<HomePage> {
                     height: 35,
                   ),
 
-                  // Row with Send, Receive and Bills buttons.
+                  /* 
+                    Row with Send, Receive and Bills buttons.
+                  */
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

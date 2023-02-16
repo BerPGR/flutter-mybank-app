@@ -33,6 +33,7 @@ class _CreateCardWidgetState extends State<CreateCardWidget> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            //This container ii's where the cards info will be
             Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -47,6 +48,7 @@ class _CreateCardWidgetState extends State<CreateCardWidget> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      //Text to show current balance
                       Text(
                         'R\$${saldo.toStringAsFixed(2)}',
                         style: TextStyle(
@@ -65,6 +67,8 @@ class _CreateCardWidgetState extends State<CreateCardWidget> {
                   SizedBox(
                     height: 60,
                   ),
+
+                  // Verification to create card numbers
                   if (widget.cardNumber.length == 16)
                     Text(
                       '${widget.cardNumber.substring(0, 4)} ' +
@@ -92,7 +96,7 @@ class _CreateCardWidgetState extends State<CreateCardWidget> {
             ),
           ],
         ),
-        SizedBox(height: 80),
+        SizedBox(height: 140),
         Align(
           alignment: Alignment.center,
           child: ElevatedButton(
@@ -107,7 +111,7 @@ class _CreateCardWidgetState extends State<CreateCardWidget> {
             },
             child: Text(
               'Add Card',
-              style: TextStyle(fontSize: 29),
+              style: TextStyle(fontSize: 20),
             ),
             style: ElevatedButton.styleFrom(
                 backgroundColor: widget.cardColor,

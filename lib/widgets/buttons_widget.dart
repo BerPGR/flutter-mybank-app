@@ -17,10 +17,8 @@ class ButtonWidget extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-              boxShadow: [BoxShadow(spreadRadius: 0.03, blurRadius: 20)],
-              color: Colors.pink,
-              borderRadius: BorderRadius.circular(45)),
-          height: 90,
+              color: Colors.grey[300], borderRadius: BorderRadius.circular(45)),
+          height: 80,
           child: Center(
             child: Image.asset(buttonImgPath),
           ),

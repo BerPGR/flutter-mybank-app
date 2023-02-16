@@ -18,6 +18,9 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
   TextEditingController _monthController = TextEditingController();
   TextEditingController _yearController = TextEditingController();
 
+  /*
+  List of banks to DropDownButton
+  */
   List<String> _bancos = [
     'Caixa',
     'Bradesco',
@@ -27,6 +30,9 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
     'Inter'
   ];
 
+  /* 
+  Function to change card's color depending on the bank selected
+  */
   Color setCardColor(String banco) {
     Color color;
     if (banco == 'Bradesco') {
@@ -63,6 +69,9 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Row(
                     children: [
+                      /*
+                        Icon button to go back to the previous screen
+                      */
                       IconButton(
                         onPressed: Navigator.of(context).pop,
                         icon: Icon(Icons.arrow_back_ios),
@@ -75,6 +84,9 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                     ],
                   ),
                 ),
+                /*
+                  DropDown to select one of the banks in the _bancos list
+                */
                 DropdownButton<String>(
                   elevation: 8,
                   hint: Text('Choose your bank!'),
@@ -97,6 +109,10 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                 SizedBox(
                   height: 20,
                 ),
+                /*
+                  TextField to insert card's number and
+                  Change the flag logo
+                 */
                 TextField(
                   onChanged: (value) {
                     if (value.length == 16) {
@@ -108,6 +124,10 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                           int.parse(value.substring(0, 2)) < 56) {
                         setState(() {
                           flagImagePath = 'assets/images/mastercard.png';
+                        });
+                      } else {
+                        setState(() {
+                          flagImagePath = 'assets/images/elo.png';
                         });
                       }
                     }
@@ -132,6 +152,10 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                 SizedBox(
                   height: 20,
                 ),
+                /*
+                  Created to Row with 2 text field to insert
+                  expiry month and year
+                */
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -182,6 +206,11 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                 SizedBox(
                   height: 50,
                 ),
+                /*
+                  Added a CreateCardWidget widget so optimize the code,
+                  this is the other part of the screen, which will show us
+                  the card infos that we're adding
+                */
                 CreateCardWidget(
                   flagImagePath: flagImagePath,
                   cardColor: cardColor,
