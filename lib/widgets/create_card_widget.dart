@@ -101,13 +101,32 @@ class _CreateCardWidgetState extends State<CreateCardWidget> {
           alignment: Alignment.center,
           child: ElevatedButton(
             onPressed: () {
-              cards.add(BankCard(
-                  color: widget.cardColor,
-                  cardNumber: widget.cardNumber,
-                  flag: widget.flagImagePath,
-                  expiryMonth: widget.expiryMonth,
-                  expiryYear: widget.expiryYear));
-              Navigator.of(context).pop();
+              if (widget.expiryMonth == 0 ||
+                  widget.expiryYear == 0 ||
+                  widget.cardNumber.length < 16 ||
+                  widget.banco.isEmpty) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext builder) => AlertDialog(
+                          title: Text('There are missing fields!'),
+                          content: Text('Check the fields again'),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context, 'OK');
+                                },
+                                child: Text('Ok'))
+                          ],
+                        ));
+              } else {
+                cards.add(BankCard(
+                    color: widget.cardColor,
+                    cardNumber: widget.cardNumber,
+                    flag: widget.flagImagePath,
+                    expiryMonth: widget.expiryMonth,
+                    expiryYear: widget.expiryYear));
+                Navigator.of(context).pop();
+              }
             },
             child: Text(
               'Add Card',

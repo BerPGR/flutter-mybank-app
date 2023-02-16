@@ -159,6 +159,10 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    /*
+                      Container that
+                      Contains the TextField of the month
+                    */
                     Container(
                       width: (MediaQuery.of(context).size.width * 0.4),
                       child: TextField(
@@ -178,8 +182,36 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                             ),
                           ),
                         ),
+                        onChanged: (month) {
+                          if (month.isEmpty) {
+                            print('');
+                          } else if (int.parse(month) > 12) {
+                            setState(() {
+                              _yearController.text = '';
+                            });
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                      title: Text('Ops... Wrong number 🤨'),
+                                      content: Text(
+                                          'Month must be between 01 and 12'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context, 'OK');
+                                            },
+                                            child: Text('OK'))
+                                      ],
+                                    ));
+                          }
+                        },
                       ),
                     ),
+
+                    /*
+                      Container that contains the TextField
+                      of the year
+                     */
                     Container(
                       width: (MediaQuery.of(context).size.width * 0.4),
                       child: TextField(
@@ -199,6 +231,32 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                             ),
                           ),
                         ),
+                        onChanged: (value) {
+                          if (value.length == 2) {
+                            int actualYear = int.parse(
+                                DateTime.now().year.toString().substring(2));
+                            if (int.parse(value) < actualYear) {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext builder) =>
+                                      AlertDialog(
+                                        title: Text('Ops... Wrong number 🤨'),
+                                        content: Text(
+                                            'Selected year is lower than the actual year'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context, 'OK');
+                                              },
+                                              child: Text('OK'))
+                                        ],
+                                      ));
+                              setState(() {
+                                _yearController.text = '';
+                              });
+                            }
+                          }
+                        },
                       ),
                     ),
                   ],
