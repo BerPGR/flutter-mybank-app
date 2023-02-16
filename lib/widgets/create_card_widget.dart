@@ -107,7 +107,7 @@ class _CreateCardWidgetState extends State<CreateCardWidget> {
             },
             child: Text(
               'Add Card',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 29),
             ),
             style: ElevatedButton.styleFrom(
                 backgroundColor: widget.cardColor,

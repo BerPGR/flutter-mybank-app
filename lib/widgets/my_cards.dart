@@ -41,12 +41,20 @@ class _MyCardsState extends State<MyCards> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'R\$${widget.balance.toStringAsFixed(2)}',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Text(
+                      'R\$${widget.balance.toStringAsFixed(2)}',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {},
+                    )
+                  ],
                 ),
                 if (widget.flag.isNotEmpty)
                   Image.asset(

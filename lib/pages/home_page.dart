@@ -13,6 +13,40 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _pageController = PageController();
+  List allCards = [];
+
+  Widget _allCards() {
+    return Column(
+      children: [
+        Container(
+          height: 200,
+          child: PageView(
+            scrollDirection: Axis.horizontal,
+            controller: _pageController,
+            children: allCards
+                .map(
+                  (card) => MyCards(
+                      flag: card.flag,
+                      expiryYear: card.expiryYear,
+                      expiryMonth: card.expiryMonth,
+                      cardNumber: card.cardNumber,
+                      color: card.color,
+                      balance: card.balance),
+                )
+                .toList(),
+          ),
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        SmoothPageIndicator(
+          controller: _pageController,
+          count: allCards.length,
+          effect: ExpandingDotsEffect(),
+        )
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +74,15 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(25)),
                           child: IconButton(
                             onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => CardCreatorPage()));
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(
+                                      builder: (context) => CardCreatorPage()))
+                                  .then((value) {
+                                setState(() {
+                                  allCards = cards;
+                                });
+                                print('Voltou!');
+                              });
                             },
                             icon: Icon(Icons.add),
                           ),
@@ -52,43 +93,12 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 10,
                   ),
-                  if (cards.isEmpty)
+                  if (allCards.isNotEmpty) _allCards(),
+                  if (allCards.isEmpty)
                     Container(
+                      alignment: Alignment.center,
                       height: 200,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text('There are no cards in your account'),
-                      ),
-                    ),
-                  if (cards.isNotEmpty)
-                    Column(
-                      children: [
-                        Container(
-                          height: 200,
-                          child: PageView(
-                            scrollDirection: Axis.horizontal,
-                            controller: _pageController,
-                            children: [
-                              for (final card in cards)
-                                MyCards(
-                                    flag: card.flag,
-                                    expiryYear: card.expiryYear,
-                                    expiryMonth: card.expiryMonth,
-                                    cardNumber: card.cardNumber,
-                                    color: card.color,
-                                    balance: card.balance),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 25,
-                        ),
-                        SmoothPageIndicator(
-                          controller: _pageController,
-                          count: cards.length,
-                          effect: ExpandingDotsEffect(),
-                        )
-                      ],
+                      child: Text("There's no cards in your account."),
                     )
                 ],
               ),
