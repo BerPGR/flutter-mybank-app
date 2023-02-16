@@ -1,6 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String buttonImgPath;
@@ -14,6 +12,27 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+              boxShadow: [BoxShadow(spreadRadius: 0.03, blurRadius: 20)],
+              color: Colors.pink,
+              borderRadius: BorderRadius.circular(45)),
+          height: 90,
+          child: Center(
+            child: Image.asset(buttonImgPath),
+          ),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          buttonText,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        )
+      ],
+    );
   }
 }

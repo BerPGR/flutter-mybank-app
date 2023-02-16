@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mybank/model/bank_card.dart';
 import 'package:mybank/pages/card_creator_page.dart';
+import 'package:mybank/widgets/buttons_widget.dart';
 import 'package:mybank/widgets/my_cards.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -112,13 +113,28 @@ class _HomePageState extends State<HomePage> {
                       child: Text("There's no cards in your account."),
                     ),
                   SizedBox(
-                    height: 25,
+                    height: 35,
                   ),
 
                   // Row with Send, Receive and Bills buttons.
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [],
+                    children: [
+                      // Send Button
+                      ButtonWidget(
+                          buttonImgPath: 'assets/images/send.png',
+                          buttonText: 'Send'),
+
+                      //Receive Button
+                      ButtonWidget(
+                          buttonImgPath: 'assets/images/receive.png',
+                          buttonText: 'Receive'),
+
+                      //Bills
+                      ButtonWidget(
+                          buttonImgPath: 'assets/images/bill.png',
+                          buttonText: 'Bills'),
+                    ],
                   )
                 ],
               ),
