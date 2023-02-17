@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:mybank/model/bank_card.dart';
+import 'package:mybank/pages/home_page.dart';
 
 class MyCards extends StatefulWidget {
+  final int id;
   final String cardNumber;
   final int expiryMonth;
   final int expiryYear;
@@ -11,6 +14,7 @@ class MyCards extends StatefulWidget {
 
   const MyCards(
       {Key? key,
+      required this.id,
       required this.cardNumber,
       required this.expiryMonth,
       required this.expiryYear,
@@ -24,6 +28,8 @@ class MyCards extends StatefulWidget {
 }
 
 class _MyCardsState extends State<MyCards> {
+  TextEditingController _balanceController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -50,10 +56,59 @@ class _MyCardsState extends State<MyCards> {
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
+                    /*
+                    Button to add balance to actual card 
+                    */
                     IconButton(
                       icon: Icon(Icons.add),
-                      onPressed: () {},
-                    )
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext builder) => AlertDialog(
+                                  title: Text('Select an amount'),
+                                  content: TextField(
+                                    controller: _balanceController,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context, 'Add amount');
+                                        },
+                                        child: Text('Add amount'))
+                                  ],
+                                ));
+                      },
+                    ),
+                    /* 
+                    Icon to
+                    delete the actual card
+                    */
+                    IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext builder) => AlertDialog(
+                                    title: Text('Are you sure?'),
+                                    content: Text(
+                                        "You are going to delete this card!"),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context, 'Yes');
+                                          },
+                                          child: Text('Yes')),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context, 'NO');
+                                          },
+                                          child: Text('NO'))
+                                    ],
+                                  ));
+                        },
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ))
                   ],
                 ),
                 if (widget.flag.isNotEmpty)

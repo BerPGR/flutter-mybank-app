@@ -6,9 +6,11 @@ class BankCard {
   final int expiryMonth;
   final int expiryYear;
   final color;
+  final int id;
 
   BankCard(
-      {required this.cardNumber,
+      {required this.id,
+      required this.cardNumber,
       required this.flag,
       this.balance = 0.0,
       required this.expiryMonth,

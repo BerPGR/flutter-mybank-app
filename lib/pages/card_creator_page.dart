@@ -87,27 +87,40 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                 /*
                   DropDown to select one of the banks in the _bancos list
                 */
-                DropdownButton<String>(
-                  elevation: 8,
-                  hint: Text('Choose your bank!'),
-                  value: _banco.isNotEmpty ? _banco : null,
-                  onChanged: (value) {
-                    setState(() {
-                      _banco = value.toString();
-                      cardColor = setCardColor(_banco);
-                    });
-                  },
-                  items: _bancos.map(
-                    (String value) {
-                      return DropdownMenuItem(
-                        value: value,
-                        child: Text(value),
-                      );
-                    },
-                  ).toList(),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      elevation: 8,
+                      hint: Text(
+                        'Choose your bank!',
+                        style: TextStyle(color: Colors.deepPurple),
+                      ),
+                      value: _banco.isNotEmpty ? _banco : null,
+                      onChanged: (value) {
+                        setState(() {
+                          _banco = value.toString();
+                          cardColor = setCardColor(_banco);
+                        });
+                      },
+                      items: _bancos.map(
+                        (String value) {
+                          return DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          );
+                        },
+                      ).toList(),
+                    ),
+                  ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 /*
                   TextField to insert card's number and
@@ -262,7 +275,7 @@ class _CardCreatorPageState extends State<CardCreatorPage> {
                   ],
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 /*
                   Added a CreateCardWidget widget so optimize the code,

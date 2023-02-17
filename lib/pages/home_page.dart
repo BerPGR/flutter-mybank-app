@@ -16,6 +16,9 @@ class _HomePageState extends State<HomePage> {
   final _pageController = PageController();
   List allCards = [];
 
+/* 
+Widget to optimize code and show all the bank cards 
+*/
   Widget _allCards() {
     return Column(
       children: [
@@ -27,6 +30,7 @@ class _HomePageState extends State<HomePage> {
             children: allCards
                 .map(
                   (card) => MyCards(
+                      id: card.id,
                       flag: card.flag,
                       expiryYear: card.expiryYear,
                       expiryMonth: card.expiryMonth,

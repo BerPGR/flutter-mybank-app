@@ -25,6 +25,7 @@ class CreateCardWidget extends StatefulWidget {
 }
 
 class _CreateCardWidgetState extends State<CreateCardWidget> {
+  int cardId = cards.length;
   double saldo = 0;
   @override
   Widget build(BuildContext context) {
@@ -96,7 +97,7 @@ class _CreateCardWidgetState extends State<CreateCardWidget> {
             ),
           ],
         ),
-        SizedBox(height: 140),
+        SizedBox(height: 40),
         Align(
           alignment: Alignment.center,
           child: ElevatedButton(
@@ -119,7 +120,15 @@ class _CreateCardWidgetState extends State<CreateCardWidget> {
                           ],
                         ));
               } else {
+                if (cards.length == 0) {
+                  setState(() {
+                    cardId = 0;
+                  });
+                } else {
+                  cardId = cards.length + 1;
+                }
                 cards.add(BankCard(
+                    id: cardId,
                     color: widget.cardColor,
                     cardNumber: widget.cardNumber,
                     flag: widget.flagImagePath,
